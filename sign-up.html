@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Luxury Clothing Brand</title>
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(45deg, #a18cd1, #fbc2eb, #a18cd1, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            color: #333;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(45deg, #2c3e50, #4a148c, #4a148c, #d4af37);
+            color: #d4af37;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+        }
+
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .form-container h2 {
+            color: #fff;
+        }
+
+        .form-container label {
+            color: #bbb;
+        }
+
+        .form-container input {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .form-container input:focus {
+            border-color: #e50914;
+        }
+
+        .form-container button {
+            background: #e50914;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .form-container button:hover {
+            background: #f40612;
+        }
+
+        .form-container a {
+            color: #bbb;
+        }
+
+        .form-container a:hover {
+            color: #fff;
+        }
+
+        .toggle-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .dark-mode .form-container {
+            background: rgba(105, 105, 105, 0.9);
+            color: #d4af37;
+        }
+
+        .dark-mode input {
+            background: #645394;
+            color: #d4af37;
+        }
+
+        .dark-mode button {
+            background: #645394;
+            color: #d4af37;
+        }
+
+        .dark-mode a {
+            color: #d4af37;
+        }
+
+        .dark-mode header {
+            background-color: #333;
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .dark-mode h1,
+        .dark-mode .nav-container a {
+            color: #d4af37;
+        }
+
+        footer {
+            background: #333;
+            color: #d4af37;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        footer .container .social-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        footer .container .social-links a {
+            color: #d4af37;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        footer .container .links {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        footer .container .links a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        footer .container .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .dark-mode footer {
+            background: #222;
+            color: #d4af37;
+        }
+    </style>
+</head>
+
+<body class="transition-all duration-500">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md py-6 fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-gray-900">Serene Luxe</h1>
+            <div class="flex items-center space-x-8">
+                <nav>
+                    <ul class="flex space-x-8">
+                        <li><a href="#" class="text-gray-700 hover:text-gray-900">Home</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-gray-900">Collection</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-gray-900">About</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-gray-900">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="toggle-button" id="dark-mode-toggle">
+                    <svg id="dark-mode-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3.25a9 9 0 1 0 6.36 15.36A9 9 0 0 1 12 3.25zm-1 9.25h2v2h-2v-2zm0-4h2v2h-2V8.5z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sign-Up Form -->
+    <main class="mt-20 flex items-center justify-center min-h-screen">
+        <section class="form-container scroll-animation">
+            <h2 class="text-4xl font-bold mb-8 text-center">Sign Up</h2>
+            <form action="{% url 'userauths:sign-up' %}" method="POST" class="space-y-6">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="space-y-1">
+                    <label for="username" class="block text-sm font-medium">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="space-y-1">
+                    <label for="email" class="block text-sm font-medium">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="space-y-1">
+                    <label for="password1" class="block text-sm font-medium">Password</label>
+                    <input type="password" name="password1" id="password1" required
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="space-y-1">
+                    <label for="password2" class="block text-sm font-medium">Confirm Password</label>
+                    <input type="password" name="password2" id="password2" required
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit"
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Sign
+                        Up</button>
+                    <a href="#" class="text-sm text-indigo-600 hover:underline">Already have an account?</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold">Serene Luxe</h2>
+            <div class="social-links">
+                <a href="#" class="fab fa-facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M22.675 0H1.325C.593 0 0 .592 0 1.324V22.675C0 23.406.593 24 1.325 24H12.81V14.706H9.692V11.24H12.81V8.793C12.81 5.987 14.679 4.357 17.153 4.357C18.319 4.357 19.326 4.423 19.586 4.457V7.49H17.892C16.627 7.49 16.306 8.173 16.306 9.102V11.239H19.48L19.012 14.705H16.306V24H22.675C23.407 24 24 23.406 24 22.674V1.324C24 .592 23.407 0 22.675 0Z"/>
+                    </svg>
+                </a>
+                <a href="#" class="fab fa-twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M23.954 4.569C23.064 4.947 22.127 5.203 21.154 5.306C22.189 4.723 22.961 3.756 23.337 2.567C22.386 3.114 21.356 3.485 20.275 3.657C19.38 2.684 18.091 2.086 16.675 2.086C14.052 2.086 12.02 4.118 12.02 6.741C12.02 7.105 12.057 7.461 12.127 7.804C7.941 7.59 4.182 5.795 1.672 3.149C1.234 3.759 1 4.476 1 5.246C1 6.845 1.861 8.234 3.113 8.97C2.317 8.952 1.56 8.725 0.897 8.365C0.897 8.382 0.897 8.4 0.897 8.418C0.897 10.646 2.448 12.485 4.492 12.89C4.126 12.983 3.744 13.03 3.35 13.03C3.066 13.03 2.791 13.005 2.524 12.956C3.086 14.765 4.712 16.12 6.658 16.161C5.133 17.385 3.183 18.095 1.072 18.095C0.71 18.095 0.35 18.074 0 18.033C1.963 19.374 4.293 20.105 6.747 20.105C16.67 20.105 21.676 12.946 21.676 7.272C21.676 7.084 21.671 6.896 21.663 6.71C22.641 5.983 23.47 5.048 24 4.03L23.954 4.569Z"/>
+                    </svg>
+                </a>
+                <a href="#" class="fab fa-instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M12.004 2.839C9.028 2.839 8.536 2.851 7.37 2.906C6.2 2.961 5.33 3.257 4.61 3.59C3.89 3.922 3.336 4.378 2.778 4.937C2.219 5.496 1.763 6.051 1.431 6.77C1.099 7.489 0.804 8.359 0.749 9.529C0.694 10.695 0.682 11.188 0.682 14.163C0.682 17.139 0.694 17.63 0.749 18.799C0.804 19.968 1.099 20.838 1.431 21.558C1.763 22.278 2.219 22.832 2.778 23.391C3.336 23.95 3.89 24.405 4.61 24.737C5.33 25.069 6.2 25.365 7.37 25.42C8.536 25.475 9.028 25.487 12.004 25.487C14.98 25.487 15.471 25.475 16.64 25.42C17.809 25.365 18.679 25.069 19.399 24.737C20.118 24.405 20.673 23.95 21.231 23.391C21.79 22.832 22.246 22.278 22.578 21.558C22.91 20.838 23.205 19.968 23.26 18.799C23.315 17.63 23.327 17.139 23.327 14.163C23.327 11.188 23.315 10.695 23.26 9.529C23.205 8.359 22.91 7.489 22.578 6.77C22.246 6.051 21.79 5.496 21.231 4.937C20.673 4.378 20.118 3.922 19.399 3.59C18.679 3.257 17.809 2.961 16.64 2.906C15.471 2.851 14.98 2.839 12.004 2.839ZM12.004 0C15.098 0 15.585 0.011 16.757 0.065C17.924 0.119 18.779 0.416 19.495 0.748C20.212 1.08 20.768 1.535 21.327 2.094C21.886 2.652 22.341 3.208 22.674 3.926C23.006 4.642 23.303 5.498 23.357 6.665C23.411 7.837 23.422 8.324 23.422 11.419C23.422 14.513 23.411 15.001 23.357 16.172C23.303 17.34 23.006 18.195 22.674 18.911C22.341 19.63 21.886 20.185 21.327 20.743C20.768 21.302 20.212 21.757 19.495 22.089C18.779 22.421 17.924 22.717 16.757 22.772C15.585 22.826 15.098 22.837 12.004 22.837C8.909 22.837 8.421 22.826 7.25 22.772C6.083 22.717 5.228 22.421 4.511 22.089C3.795 21.757 3.239 21.302 2.68 20.743C2.121 20.185 1.665 19.63 1.333 18.911C1.001 18.195 0.705 17.34 0.651 16.172C0.597 15.001 0.586 14.513 0.586 11.419C0.586 8.324 0.597 7.837 0.651 6.665C0.705 5.498 1.001 4.642 1.333 3.926C1.665 3.208 2.121 2.652 2.68 2.094C3.239 1.535 3.795 1.08 4.511 0.748C5.228 0.416 6.083 0.119 7.25 0.065C8.421 0.011 8.909 0 12.004 0ZM12.004 6.163C9.348 6.163 7.161 8.349 7.161 11.004C7.161 13.66 9.348 15.846 12.004 15.846C14.66 15.846 16.846 13.66 16.846 11.004C16.846 8.349 14.66 6.163 12.004 6.163ZM12.004 18.215C8.694 18.215 5.793 15.314 5.793 12.004C5.793 8.694 8.694 5.793 12.004 5.793C15.314 5.793 18.215 8.694 18.215 12.004C18.215 15.314 15.314 18.215 12.004 18.215ZM20.487 5.533C20.487 4.734 19.816 4.063 19.017 4.063C18.218 4.063 17.547 4.734 17.547 5.533C17.547 6.332 18.218 7.003 19.017 7.003C19.816 7.003 20.487 6.332 20.487 5.533Z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Serene Luxe. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const darkModeIcon = document.getElementById('dark-mode-icon');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                darkModeIcon.innerHTML = '<path d="M12 3.25a9 9 0 1 0 6.36 15.36A9 9 0 0 1 12 3.25zm-1 9.25h2v2h-2v-2zm0-4h2v2h-2V8.5z" />';
+            } else {
+                darkModeIcon.innerHTML = '<path d="M12 3.25a9 9 0 1 0 6.36 15.36A9 9 0 0 1 12 3.25zm-1 9.25h2v2h-2v-2zm0-4h2v2h-2V8.5z" />';
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.scroll-animation').forEach((el) => {
+            observer.observe(el);
+        });
+        
+    </script>
+</body>
+
+</html>
